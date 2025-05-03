@@ -25,12 +25,21 @@ def generate():
     prompt = f"Create a recipe using these ingredients: {ingredients}. Include a title, ingredients list, and clear step-by-step instructions."
 
     def generate_stream():
-        yield "<h2>🍽️ Your Recipe:</h2><pre>"
+        yield "<h2>🍽️ Your Recipe:</h2>"
         response = model.generate_content(prompt, stream=True)
         for chunk in response:
-            # Replace newlines with HTML line breaks for better formatting
-            formatted_text = chunk.text.replace("\n", "<br>")
-            yield formatted_text
+            if chunk.text:  # Ensure the chunk has text
+                print(chunk.text)
+                # Convert Markdown-like syntax to HTML
+                formatted_text = (
+                    chunk.text
+                    # .replace("**", "<b>")  # Replace bold markers
+                    # .replace("# ", "<h3>")  # Replace heading markers
+                    .replace("\n", "<br>")  # Replace newlines with <br>
+                )
+                # Close tags for bold and headings
+                formatted_text = formatted_text.replace("<b>", "</b>", 1).replace("<h3>", "</h3>", 1)
+                yield formatted_text
         yield "</pre>"
 
     return Response(stream_with_context(generate_stream()), mimetype='text/html')
