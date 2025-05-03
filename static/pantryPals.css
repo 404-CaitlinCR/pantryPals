@@ -22,6 +22,12 @@ header{
     background-color: #a2c590;
     padding: 10px;
     border-radius: 10px;
+    display: flex; /* Use Flexbox for layout */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin: 0 auto; /* Center the container itself */
+    width: fit-content; /* Adjust width to fit content */
+    margin-left: 100px; /* Move closer to the image */
 }
 
 .nav img {

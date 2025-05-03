@@ -7,15 +7,19 @@
         <link rel="icon" type="image/png" href="{{ url_for('static', filename='PantryPalLogo.png') }}">
     </head>
     <body>
-        <a href="{{ url_for('home') }}">
-            <img src="{{ url_for('static', filename='PantryPalLogo.png') }}" style="width:150px; height:150px;" alt="Pantry Pal Logo">
-            </a>        <header>
+        <header>
             <div class="nav">
+                <a href="{{ url_for('home') }}">
+                    <img src="{{ url_for('static', filename='PantryPalLogo.png') }}" style="width:150px; height:150px;" alt="Pantry Pal Logo">
+                </a>
     
                 <!-- make home into a quick link to the homepage -->
-                <a href="{{ url_for('recipe_book') }}">Recipe Book</a>
-                <a href="{{ url_for('recomendations') }}">Recomendations</a>
-                <a href="{{ url_for('support') }}">Support</a>
+                 <div class="pages">
+                    <a href="{{ url_for('recipe_book') }}">Recipe Book</a>
+                    <a href="{{ url_for('recomendations') }}">Recomendations</a>
+                    <a href="{{ url_for('support') }}">Support</a>
+                 </div>
+           
             </div>
         </header>
         <body>
