@@ -2,35 +2,49 @@
 <html lang="en">
     <head>
         <meta charset="utf-8"/>
-        <title>Plant Pals</title>
+        <title>Pantry Pals</title>
         <link rel="stylesheet" href="plantPals.css">
+        <link rel="icon" type="image/png" href="PantryPalLogo.png">
     </head>
     <body>
         <header>
             <div class="nav">
-                <a href="index.html">Home</a> 
+                <a class="home" href="index.html">
+                    <img src="PantryPalLogo.png" alt="Home" style="width:80px; height:80px;"> Pantry Pals
+                </a> 
                 <!-- make home into a quick link to the homepage -->
-                <a href="recipeBook.html">Recipe book</a>
-                <a href="recomendations.html">Recomendations</a>
-                <a href="support.html">Support</a>
+                <a class="recipeBook" href="recipeBook.html">Recipe book</a>
+                <a class="recomendations" href="recomendations.html">Recomendations</a>
+                <a class="support" href="support.html">Support</a>
             </div>
         </header>
         <div class="interface">
-            <div class="userInput">
-                <!-- <div class="title"><h1>Pantry pals</h1></div> -->
+            <!-- <div class="userInput">
+                
 
                 <h2>Diet Restrictions</h2>
                 <p>Enter text</p>
 
                 <h2>Type of meal</h2>
-                <p>Enter text</p>
-
-                <h2>Ingredients</h2>
-                <p>Enter text</p>
+                <p>Enter text</p> -->
+                <div class = "userInput">=
+                    <form method="post">
+                        <label for="ingredients">Enter ingredients (comma-separated):</label><br>
+                        <input type="text" id="ingredients" name="ingredients" required>
+                        <button type="submit">Generate Recipe</button>
+                    </form>
+                </div>
+            
             </div>
 
             <div class="chatBox">
                 <h2>Recipe</h2>
+                {% if recipe %}
+                <div class = "chatBox">
+                    <h2>🍽️ Your Recipe:</h2>
+                    <pre>{{ recipe }}</pre>
+                </div>
+                {% endif %}
             </div>
         </div>
     </body>
