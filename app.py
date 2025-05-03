@@ -33,8 +33,8 @@ def generate():
                 # Convert Markdown-like syntax to HTML
                 formatted_text = (
                     chunk.text
-                    # .replace("**", "<b>")  # Replace bold markers
-                    # .replace("# ", "<h3>")  # Replace heading markers
+                    .replace("**", "<b>")  # Replace bold markers
+                    .replace("##", "<h3>")  # Replace heading markers
                     .replace("\n", "<br>")  # Replace newlines with <br>
                 )
                 # Close tags for bold and headings
