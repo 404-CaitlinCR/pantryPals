@@ -18,6 +18,21 @@ model = genai.GenerativeModel(
 
 app = Flask(__name__)
 
+
+@app.route("/generate", methods=["POST"])
+def generate():
+    ingredients = request.form.get("ingredients")
+    prompt = f"Create a recipe using these ingredients: {ingredients}. Include a title, ingredients list, and clear step-by-step instructions."
+
+    def generate_stream():
+        yield "<h2>🍽️ Your Recipe:</h2><pre>"
+        response = model.generate_content(prompt, stream=True)
+        for chunk in response:
+            yield chunk.text
+        yield "</pre>"
+
+    return Response(stream_with_context(generate_stream()), mimetype='text/html')
+
 @app.route("/", methods=["GET"])
 def home():
     return render_template("index.html")
@@ -34,19 +49,6 @@ def recomendations():
 def support():
     return render_template("support.html")
 
-@app.route("/generate", methods=["POST"])
-def generate():
-    ingredients = request.form.get("ingredients")
-    prompt = f"Create a recipe using these ingredients: {ingredients}. Include a title, ingredients list, and clear step-by-step instructions."
-
-    def generate_stream():
-        yield "<h2>🍽️ Your Recipe:</h2><pre>"
-        response = model.generate_content(prompt, stream=True)
-        for chunk in response:
-            yield chunk.text
-        yield "</pre>"
-
-    return Response(stream_with_context(generate_stream()), mimetype='text/html')
 
 
 if __name__ == "__main__":
