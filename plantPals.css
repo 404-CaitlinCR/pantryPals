@@ -9,45 +9,22 @@ header{
     color: #4c2615;
 
 }
-.nav {
-    display: flex;
-    align-items: center; /* Align items vertically */
-    justify-content: flex-start; /* Align items to the left */
-    position: relative;
-    gap: 15px; /* Add spacing between links */
+.nav{
+    text-align: center;
 }
-
-.nav .home {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: #4c2615;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.nav .home img {
-    margin-right: 5px;
-    width: 80px; /* Adjusted size */
-    height: 80px;
-}
-
-.recipeBook, .recomendations, .support {
+.nav a {
     background-color: #a2c590;
     border-radius: 10px;
     padding: 5px 10px;
+    margin: 5px;
+    display: inline-block;
     text-decoration: none;
     color: #4c2615;
     font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-    margin: 5px 0; /* Reduce gaps between elements */
-    display: block; /* Ensure block-level centering */
+    font-weight: heavy;
 }
 
-
-
-.recipeBook:hover, .recomendations:hover, .support:hover {
+.nav a:hover{
     background-color: #96b586;
     
 }
@@ -93,3 +70,23 @@ header{
     align-items: center;
 }
 
+.contact {
+    background-color: #a2c590;
+    flex: 1;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    width: 1500px;
+}
+
+.contact p {
+    background-color: #88b572;
+    padding: 10px 10px;
+    border-radius: 10px;
+    color: #745547;
+    font-size: 20px;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+}
