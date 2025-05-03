@@ -28,7 +28,9 @@ def generate():
         yield "<h2>🍽️ Your Recipe:</h2><pre>"
         response = model.generate_content(prompt, stream=True)
         for chunk in response:
-            yield chunk.text
+            # Replace newlines with HTML line breaks for better formatting
+            formatted_text = chunk.text.replace("\n", "<br>")
+            yield formatted_text
         yield "</pre>"
 
     return Response(stream_with_context(generate_stream()), mimetype='text/html')

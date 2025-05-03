@@ -71,6 +71,7 @@ header{
     align-items: center;     /* Center horizontally */
 }
 
+/* this is for the contact page */
 
 .contact {
     background-color: #a2c590;
@@ -80,7 +81,6 @@ header{
     text-align: center;
     width: 1500px;
 }
-
 .contact p {
     background-color: #88b572;
     padding: 10px 10px;
