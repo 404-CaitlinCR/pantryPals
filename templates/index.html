@@ -1,99 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Gemini Recipe Generator</title>
-    <style>
-        body {
-        background-color: #eedac3;
-        color: #4c2615;
-
-    }
-    header{
-        margin: 0 auto;
-        margin-top: 20px;
-        color: #4c2615;
-
-    }
-    .nav{
-        text-align: center;
-    }
-    .nav a {
-        background-color: #a2c590;
-        border-radius: 10px;
-        padding: 5px 10px;
-        margin: 5px;
-        display: inline-block;
-        text-decoration: none;
-        color: #4c2615;
-        font-size: 20px;
-        font-weight: heavy;
-    }
-
-    .nav a:hover{
-        background-color: #96b586;
-        
-    }
-
-    .userInput {
-        background-color: #a2c590;
-        flex: 1;
-        display: inline-block;
-        vertical-align: top;
-        text-align: center;
-        margin: 0 auto;
-    }
-
-    .userInput p {
-        background-color: #88b572;
-        padding: 10px 10px;
-        margin-right: 10px;
-        border-radius: 10px;
-        color: #745547;
-        font-size: 20px;
-    }
-
-    .chatBox {
-        background-color: #eedac3;
-        border-radius: 15px;
-        flex: 1;
-        display: inline-block;
-        vertical-align: top;
-        text-align: center;
-        margin: 10px;
-        height: 70vh;
-        padding: 10px;
-    }
-
-    .interface {
-        margin: 20px auto;
-        background-color: #a2c590;
-        padding: 15px;
-        width: 67%;
-        border-radius: 25px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    </style>
+    <meta charset="utf-8"/>
+    <title>Pantry Pals</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='plantPals.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='PantryPalLogo.png') }}">
 </head>
 <body>
-    <header>=
-        <h1>PantryPal</h1>
+    <img src="{{ url_for('static', filename='PantryPalLogo.png') }}" style="width:150px; height:150px;"> 
+    <header>
+        <div class="nav">
+            <a href="{{ url_for('home') }}">Pantry Pal</a>
+
+            <!-- make home into a quick link to the homepage -->
+            <a href="{{ url_for('recipe_book') }}">Recipe Book</a>
+            <a href="{{ url_for('recomendations') }}">Recomendations</a>
+            <a href="{{ url_for('support') }}">Support</a>
+        </div>
     </header>
+    <body>
 
-    <div class = "userInput">=
-        <form method="post">
-            <label for="ingredients">Enter ingredients (comma-separated):</label><br>
-            <input type="text" id="ingredients" name="ingredients" required>
-            <button type="submit">Generate Recipe</button>
-        </form>
+    <div class="interface">
+        <div class="userInput">
+            <form method="post" action="/generate">
+                <label for="ingredients">Enter ingredients (comma-separated):</label><br>
+                <input type="text" id="ingredients" name="ingredients" required>
+                <button type="submit">Generate Recipe</button>
+            </form>
+        </div>
+
+        <div class="chatBox" id="output">
+            <!-- Streaming output will go here -->
+        </div>
     </div>
 
-    {% if recipe %}
-    <div class = "chatBox">
-        <h2>🍽️ Your Recipe:</h2>
-        <pre>{{ recipe }}</pre>
-    </div>
-    {% endif %}
+    <script>
+        const form = document.querySelector("form");
+        const outputDiv = document.getElementById("output");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            outputDiv.innerHTML = "<p>Generating...</p>";
+
+            fetch("/generate", {
+                method: "POST",
+                body: new FormData(form),
+            }).then(response => {
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder("utf-8");
+
+                function readChunk() {
+                    reader.read().then(({ done, value }) => {
+                        if (done) return;
+                        const chunk = decoder.decode(value, { stream: true });
+                        outputDiv.innerHTML += chunk;
+                        readChunk();
+                    });
+                }
+
+                readChunk();
+            });
+        });
+    </script>
 </body>
 </html>
