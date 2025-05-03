@@ -139,3 +139,40 @@ label{
 p{
     font-family: Didot, serif
 }
+
+/* Recommendations page styling */
+.container {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+  }
+
+.focacciaBread, .bananaBread, .lasagna {
+    background-color:#a2c590;
+    border-radius: 25px;
+    box-shadow: 10px 10px;
+    border: 2px solid rgb(3, 42, 3);
+}
+
+.container div:hover{
+    transform:scale(1.1);
+    transition: transform 0.3s ease;
+
+}
+
+.container img{
+    border-radius: 25px;
+    padding: 10px;
+}
+
+figcaption {
+    text-align: center;
+    font-size: 25px;
+    padding-bottom: 10px;
+}
+
+/* .focacciaBread, .bananaBread, .lasagna img
+{
+    border-radius: 25px;
+    padding: 10px;
+} */

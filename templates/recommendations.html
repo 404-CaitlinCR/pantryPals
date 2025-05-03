@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Recommendations</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='pantryPals.css') }}">
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='PantryPalLogo.png') }}">
+    </head>
+    <body>
+        <header>
+            <div class="nav">
+                <a href="{{ url_for('home') }}">
+                    <img src="{{ url_for('static', filename='PantryPalLogo.png') }}" style="width:150px; height:150px;" alt="Pantry Pal Logo">
+                </a>
+    
+                <!-- make home into a quick link to the homepage -->
+                 <div class="pages">
+                    <a href="{{ url_for('recipe_book') }}">Recipe Book</a>
+                    <a href="{{ url_for('recommendations') }}">Recommendations</a>
+                    <a href="{{ url_for('support') }}">Support</a>
+                 </div>
+           
+            </div>
+        </header>
+    </body>
+    <div class="container">
+        <div class="focacciaBread">
+            <a href="https://www.gimmesomeoven.com/rosemary-focaccia-bread/">
+                <img src="https://www.gimmesomeoven.com/wp-content/uploads/2017/03/Rosemary-Focaccia-Bread-Recipe-1-1.jpg" width="200" height="300">
+            </a>
+            <figcaption>Focaccia Bread</figcaption>
+        </div>
+        <div class="bananaBread">
+            <a href="https://www.simplyrecipes.com/recipes/banana_bread/">
+                <img src="https://krollskorner.com/wp-content/uploads/2023/12/Classic-Banana-Bread_LowRes-018.jpg" width="200" height="300">
+            </a>
+            <figcaption>Banana Bread</figcaption>
+        </div>
+        <div class="lasagna">
+            <a href="https://www.spendwithpennies.com/easy-homemade-lasagna/">
+                <img src="https://thecozycook.com/wp-content/uploads/2022/04/Lasagna-Recipe-F5.jpg" width="200" height="300">
+            </a>
+            <figcaption>Lasagna</figcaption>
+        </div>
+    </div>
+    <!-- <body> 
+        <header>Explore</header>
+        <a href="https://www.gimmesomeoven.com/rosemary-focaccia-bread/">Focaccia Bread</a>
+        <img src="https://www.gimmesomeoven.com/wp-content/uploads/2017/03/Rosemary-Focaccia-Bread-Recipe-1-1.jpg" width="104" height="142">
+
+        <a href="https://www.simplyrecipes.com/recipes/banana_bread/">Banana Bread</a>
+        <img src="https://krollskorner.com/wp-content/uploads/2023/12/Classic-Banana-Bread_LowRes-018.jpg" width="104" height="142">
+
+        <a href="https://www.spendwithpennies.com/easy-homemade-lasagna/">Lasagna</a>
+        <img src="https://thecozycook.com/wp-content/uploads/2022/04/Lasagna-Recipe-F5.jpg" width="104" height="142">
+        <a href="http://localhost:5000/">Back To Home</a>
+    </body> -->
+    <!-- <div class="container">
+        <div class="focacciaBread">
+            Focaccia Bread
+            <a href="https://www.gimmesomeoven.com/rosemary-focaccia-bread/">Focaccia Bread</a>
+            <img src="https://www.gimmesomeoven.com/wp-content/uploads/2017/03/Rosemary-Focaccia-Bread-Recipe-1-1.jpg" width="104" height="142">
+        </div>
+    </div>
+    <div class="container">
+        <div class="bananaBread">
+            Banana Bread
+            <a href="https://www.simplyrecipes.com/recipes/banana_bread/">Banana Bread</a>
+            <img src="https://krollskorner.com/wp-content/uploads/2023/12/Classic-Banana-Bread_LowRes-018.jpg" width="104" height="142">
+        </div>
+    </div>
+    <div class="container">
+        <div class="lasagna">
+            Lasagna
+            <a href="https://www.spendwithpennies.com/easy-homemade-lasagna/">Lasagna</a>
+            <img src="https://thecozycook.com/wp-content/uploads/2022/04/Lasagna-Recipe-F5.jpg" width="104" height="142">
+        </div>
+    </div> -->
+    
+</html>

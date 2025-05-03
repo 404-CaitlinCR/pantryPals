@@ -26,9 +26,9 @@ def home():
 def recipe_book():
     return render_template("recipeBook.html")
 
-@app.route("/recomendations")
-def recomendations():
-    return render_template("recomendations.html")
+@app.route("/recommendations")
+def recommendations():
+    return render_template("recommendations.html")
 
 @app.route("/support")
 def support():
