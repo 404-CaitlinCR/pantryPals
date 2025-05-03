@@ -22,7 +22,7 @@ app = Flask(__name__)
 @app.route("/generate", methods=["POST"])
 def generate():
     ingredients = request.form.get("ingredients")
-    prompt = f"Create a recipe using these ingredients: {ingredients}. Include a title, ingredients list, and clear step-by-step instructions."
+    prompt = f"Create a recipe using these ingredients: {ingredients}. Include a title, ingredients list, and clear step-by-step instructions.you are only allowed to use the ingredients given"
 
 def generate_stream():
     yield "<h2>🍽️ Your Recipe:</h2><ul>"  # Start an unordered list
