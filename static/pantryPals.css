@@ -6,28 +6,44 @@ body {
 header{
     font-family: Trebuchet MS, sans-serif;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 50px;
     color: #4c2615;
+    margin-bottom: 50px;
 
 }
-.nav{
-    text-align: center;
+.nav {
+    display: flex; /* Use Flexbox for layout */
+    justify-content: center; /* Center the links horizontally */
+    align-items: center; /* Align items vertically */
+    position: relative; /* Allows positioning of the logo */
 }
-.nav a {
+
+.pages {
     background-color: #a2c590;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.nav img {
+    position: absolute; /* Position the logo */
+    left: 10px; /* Align the logo to the far left */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    height: 80px; /* Adjust size as needed */
+}
+
+.nav a {
     border-radius: 10px;
     padding: 5px 10px;
-    margin: 5px;
-    display: inline-block;
+    margin: 0 10px; /* Add spacing between links */
     text-decoration: none;
     color: #4c2615;
     font-size: 20px;
-    font-weight: heavy;
+    font-weight: bold;
 }
 
-.nav a:hover{
+.pages a:hover {
     background-color: #96b586;
-    
 }
 
 .userInput {
@@ -70,19 +86,22 @@ header{
     flex-direction: column; /* Stack content vertically */
     align-items: center;     /* Center horizontally */
 }
-
+/* this is for the recipe book */
+.book {
+    background-color: #a2c590;
+}
 /* this is for the contact page */
-
 .contact {
     background-color: #a2c590;
-    flex: 1;
-    display: inline-block;
-    vertical-align: top;
+    margin: 20px auto;
+    width: 50%;
+    padding: 15px;
+    border-radius: 20px;
+    border-width: 4px;
     text-align: center;
-    width: 1500px;
 }
 .contact p {
-    background-color: #88b572;
+    background-color: #769b64;
     padding: 10px 10px;
     border-radius: 10px;
     color: #745547;

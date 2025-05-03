@@ -3,14 +3,15 @@
     <head>
         <meta charset="utf-8"/>
         <title>Pantry Pal</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='plantPals.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='pantryPals.css') }}">
         <link rel="icon" type="image/png" href="{{ url_for('static', filename='PantryPalLogo.png') }}">
     </head>
     <body>
-        <img src="{{ url_for('static', filename='PantryPalLogo.png') }}" style="width:150px; height:150px;"> 
-        <header>
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='PantryPalLogo.png') }}" style="width:150px; height:150px;" alt="Pantry Pal Logo">
+            </a>        <header>
             <div class="nav">
-                <a href="{{ url_for('home') }}">Pantry Pal</a>
+                
     
                 <!-- make home into a quick link to the homepage -->
                 <a href="{{ url_for('recipe_book') }}">Recipe Book</a>
@@ -23,9 +24,12 @@
                 <h1>Recipe Book</h1>
                 <p>Hello!!! Pantry Pal has a great recipe book for you to try out!!</p>
             </div>
+            <div class="book">
+                <a href="https://online.flippingbook.com/view/698844726/" class="fbo-embed" data-fbo-id="6c34c8accb" data-fbo-ratio="3:2" data-fbo-lightbox="yes" data-fbo-width="100%" data-fbo-height="auto" data-fbo-version="1" style="max-width: 100%">110211283</a><script async defer src="https://online.flippingbook.com/EmbedScriptUrl.aspx?m=redir&hid=698844726"></script>
+
+            </div>
         </body>
     
-        <a href="https://online.flippingbook.com/view/698844726/" class="fbo-embed" data-fbo-id="6c34c8accb" data-fbo-ratio="3:2" data-fbo-lightbox="yes" data-fbo-width="100%" data-fbo-height="auto" data-fbo-version="1" style="max-width: 100%">110211283</a><script async defer src="https://online.flippingbook.com/EmbedScriptUrl.aspx?m=redir&hid=698844726"></script>
         
     </body>
 </html>
