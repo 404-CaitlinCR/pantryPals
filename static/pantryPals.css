@@ -27,7 +27,7 @@ header{
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     width: fit-content; /* Adjust width to fit content */
-    margin-left: -4px; /* Move closer to the image */
+    margin-left: -2px; /* Move closer to the image */
     border: 2px solid rgb(3, 42, 3);
     box-shadow: 10px 10px;
     
@@ -81,10 +81,12 @@ header{
     flex: 1;
     display: inline-block;
     vertical-align: top;
-    text-align: center;
+    text-align: left;
     margin: 20px;
     height: 130vh;
     padding: 15px;
+    width: 95%; /* Set a fixed width */
+    border: solid rgb(3, 42, 3);
 }
 
 .interface {

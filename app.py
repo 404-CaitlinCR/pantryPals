@@ -24,23 +24,24 @@ def generate():
     ingredients = request.form.get("ingredients")
     prompt = f"Create a recipe using these ingredients: {ingredients}. Include a title, ingredients list, and clear step-by-step instructions."
 
-    def generate_stream():
-        yield "<h2>🍽️ Your Recipe:</h2>"
-        response = model.generate_content(prompt, stream=True)
-        for chunk in response:
-            if chunk.text:  # Ensure the chunk has text
-                print(chunk.text)
-                # Convert Markdown-like syntax to HTML
-                formatted_text = (
-                    chunk.text
-                    .replace("**", "<b>")  # Replace bold markers
-                    .replace("##", "<h3>")  # Replace heading markers
-                    .replace("\n", "<br>")  # Replace newlines with <br>
-                )
-                # Close tags for bold and headings
-                formatted_text = formatted_text.replace("<b>", "</b>", 1).replace("<h3>", "</h3>", 1)
-                yield formatted_text
-        yield "</pre>"
+def generate_stream():
+    yield "<h2>🍽️ Your Recipe:</h2><ul>"  # Start an unordered list
+    response = model.generate_content(prompt, stream=True)
+    for chunk in response:
+        if chunk.text:  # Ensure the chunk has text
+            print(chunk.text)  # Debug: Print the raw AI output
+            # Convert Markdown-like syntax to HTML
+            formatted_text = (
+                chunk.text
+                .replace("**", "")  # Remove bold markers
+                .replace("##", "<h3>")  # Replace heading markers
+                .replace("\n", "<br>")  # Replace newlines with <br>
+                .replace("* ", "<li>")  # Replace list markers with <li>
+            )
+            # Close tags for bold and headings
+            formatted_text = formatted_text.replace("<b>", "</b>", 1).replace("<h3>", "</h3>", 1)
+            yield formatted_text
+    yield "</ul></pre>"  # Close the unordered list
 
     return Response(stream_with_context(generate_stream()), mimetype='text/html')
 
