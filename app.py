@@ -54,7 +54,7 @@ def recipe_book():
 
 @app.route("/recomendations")
 def recomendations():
-    return render_template("recomendations.html")
+    return render_template("recommendations.html")
 
 @app.route("/support")
 def support():
