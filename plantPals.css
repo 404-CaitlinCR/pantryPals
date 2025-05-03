@@ -1,92 +1,54 @@
-body {
-    background-color: #eedac3;
-    color: #4c2615;
+from flask import Flask, request, render_template, Response, stream_with_context
+from dotenv import load_dotenv
+import os
+import google.generativeai as genai
 
-}
-header{
-    margin: 0 auto;
-    margin-top: 20px;
-    color: #4c2615;
+# Load environment variables
+load_dotenv()
 
-}
-.nav{
-    text-align: center;
-}
-.nav a {
-    background-color: #a2c590;
-    border-radius: 10px;
-    padding: 5px 10px;
-    margin: 5px;
-    display: inline-block;
-    text-decoration: none;
-    color: #4c2615;
-    font-size: 20px;
-    font-weight: heavy;
-}
+# Configure Gemini
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-.nav a:hover{
-    background-color: #96b586;
-    
-}
+# Initialize the model
+model = genai.GenerativeModel(
+    model_name="gemini-1.5-pro-latest",
+    system_instruction="You are an amazing chef who can make a recipe out of any ingredients. "
+                       "Be kind, creative, and clear when giving recipes and instructions."
+)
 
-.userInput {
-    background-color: #a2c590;
-    flex: 1;
-    display: inline-block;
-    vertical-align: top;
-    text-align: center;
-    margin: 0 auto;
-}
+app = Flask(__name__)
 
-.userInput p {
-    background-color: #88b572;
-    padding: 10px 10px;
-    margin-right: 10px;
-    border-radius: 10px;
-    color: #745547;
-    font-size: 20px;
-}
+@app.route("/", methods=["GET"])
+def home():
+    return render_template("index.html")
 
-.chatBox {
-    background-color: #eedac3;
-    border-radius: 15px;
-    flex: 1;
-    display: inline-block;
-    vertical-align: top;
-    text-align: center;
-    margin: 10px;
-    height: 70vh;
-    padding: 10px;
-}
+@app.route("/recipeBook")
+def recipe_book():
+    return render_template("recipeBook.html")
 
-.interface {
-    margin: 20px auto;
-    background-color: #a2c590;
-    padding: 15px;
-    width: 67%;
-    border-radius: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+@app.route("/recomendations")
+def recomendations():
+    return render_template("recomendations.html")
 
-.contact {
-    background-color: #a2c590;
-    flex: 1;
-    display: inline-block;
-    vertical-align: top;
-    text-align: center;
-    width: 1500px;
-}
+@app.route("/support")
+def support():
+    return render_template("support.html")
 
-.contact p {
-    background-color: #88b572;
-    padding: 10px 10px;
-    border-radius: 10px;
-    color: #745547;
-    font-size: 20px;
-    display: flex;
-    gap: 20px;
-    flex-direction: column;
-    align-items: center;
-}
+@app.route("/generate", methods=["POST"])
+def generate():
+    ingredients = request.form.get("ingredients")
+    prompt = f"Create a recipe using these ingredients: {ingredients}. Include a title, ingredients list, and clear step-by-step instructions."
+
+    def generate_stream():
+        yield "<h2>🍽️ Your Recipe:</h2><pre>"
+        response = model.generate_content(prompt, stream=True)
+        for chunk in response:
+            yield chunk.text
+        yield "</pre>"
+
+    return Response(stream_with_context(generate_stream()), mimetype='text/html')
+
+
+if __name__ == "__main__":
+    print("Visit http://127.0.0.1:5000 in your browser ✨")
+    app.run(debug=True)
