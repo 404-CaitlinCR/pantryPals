@@ -26,9 +26,8 @@ header{
     display: flex; /* Use Flexbox for layout */
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
-    margin: 0 auto; /* Center the container itself */
     width: fit-content; /* Adjust width to fit content */
-    margin-left: 100px; /* Move closer to the image */
+    margin-left: -4px; /* Move closer to the image */
     border: 2px solid rgb(3, 42, 3);
     box-shadow: 10px 10px;
     
