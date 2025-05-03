@@ -1,0 +1,3 @@
+- html files belong in templates
+- photos and css belon in static
+- py can just be in pantrypals
