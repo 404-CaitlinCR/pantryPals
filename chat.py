@@ -1,38 +1,54 @@
-# To run this code you need to install the following dependencies:
-# pip install google-genai
-
-import base64
+from flask import Flask, request, render_template, Response, stream_with_context
 from dotenv import load_dotenv
-load_dotenv()
 import os
 import google.generativeai as genai
 
-# set up API key
-genai.configure(api_key=os.getenv("GEMINI_API_KEY")) # api key
+# Load environment variables
+load_dotenv()
 
+# Configure Gemini
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
+# Initialize the model
 model = genai.GenerativeModel(
-    model_name = "gemini-1.5-pro-latest",
-    system_instruction = "you are an amazing chef who can make a recipe out of any ingredients. your task is to generate recipes given ingredients. you are kind, understanding, but objective and straightforward when giving recipes and instructions."
+    model_name="gemini-1.5-pro-latest",
+    system_instruction="You are an amazing chef who can make a recipe out of any ingredients. "
+                       "Be kind, creative, and clear when giving recipes and instructions."
 )
 
-# chatbot
-def generate_recipe():
+app = Flask(__name__)
 
-    # user input
-    ingredients = input("Enter ingredients (comma separated): ")
+@app.route("/", methods=["GET"])
+def home():
+    return render_template("index.html")
 
-    # define prompt
-    prompt = f"Create a recipe using: {ingredients}. " \
-                "Include a title, ingredients list, and step-by-step instructions."
-    
-    # output gemini AI response
-    print("\nHere is your recipe:\n")
-    response = model.generate_content(prompt, stream=True)
+@app.route("/recipeBook")
+def recipe_book():
+    return render_template("recipeBook.html")
 
-    for chunk in response:
-        print(chunk.text, end="")
+@app.route("/recomendations")
+def recomendations():
+    return render_template("recomendations.html")
 
-# run chatbot
+@app.route("/support")
+def support():
+    return render_template("support.html")
+
+@app.route("/generate", methods=["POST"])
+def generate():
+    ingredients = request.form.get("ingredients")
+    prompt = f"Create a recipe using these ingredients: {ingredients}. Include a title, ingredients list, and clear step-by-step instructions."
+
+    def generate_stream():
+        yield "<h2>🍽️ Your Recipe:</h2><pre>"
+        response = model.generate_content(prompt, stream=True)
+        for chunk in response:
+            yield chunk.text
+        yield "</pre>"
+
+    return Response(stream_with_context(generate_stream()), mimetype='text/html')
+
+
 if __name__ == "__main__":
-    generate_recipe()
-    
+    print("Visit http://127.0.0.1:5000 in your browser ✨")
+    app.run(debug=True)
