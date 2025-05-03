@@ -75,6 +75,11 @@ header{
     font-size: 20px;
 }
 
+.userInput input {
+    background-color: #6f965b;
+    border-radius: 10px;
+}
+
 .chatBox {
     background-color: #eedac3;
     border-radius: 15px;
