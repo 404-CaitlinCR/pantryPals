@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, Response, stream_with_context
 from dotenv import load_dotenv
 import os
 import google.generativeai as genai
@@ -16,19 +16,39 @@ model = genai.GenerativeModel(
                        "Be kind, creative, and clear when giving recipes and instructions."
 )
 
-# Create the Flask app
 app = Flask(__name__)
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET"])
 def home():
-    recipe = None
-    if request.method == "POST":
-        ingredients = request.form.get("ingredients")
-        prompt = f"Create a recipe using these ingredients: {ingredients}. Include a title, ingredients list, and clear step-by-step instructions."
-        response = model.generate_content(prompt)
-        recipe = response.text
+    return render_template("index.html")
 
-    return render_template("index.html", recipe=recipe)
+@app.route("/recipeBook")
+def recipe_book():
+    return render_template("recipeBook.html")
+
+@app.route("/recomendations")
+def recomendations():
+    return render_template("recomendations.html")
+
+@app.route("/support")
+def support():
+    return render_template("support.html")
+
+@app.route("/generate", methods=["POST"])
+def generate():
+    ingredients = request.form.get("ingredients")
+    prompt = f"Create a recipe using these ingredients: {ingredients}. Include a title, ingredients list, and clear step-by-step instructions."
+
+    def generate_stream():
+        yield "<h2>🍽️ Your Recipe:</h2><pre>"
+        response = model.generate_content(prompt, stream=True)
+        for chunk in response:
+            yield chunk.text
+        yield "</pre>"
+
+    return Response(stream_with_context(generate_stream()), mimetype='text/html')
+
 
 if __name__ == "__main__":
+    print("Visit http://127.0.0.1:5000 in your browser ✨")
     app.run(debug=True)
