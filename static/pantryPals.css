@@ -264,9 +264,15 @@ figcaption {
 
 .shortcut:hover {
     color: #fff;
-    box-shadow: inset 200px 0 0 0 #6f965b;;
+    box-shadow: inset 200px 0 0 0 #6f965b;
 }
-  
+.cookingGuy{
+    padding-bottom: 10px;
+}
+.cookingGuy img{
+    width: 30%;
+    height: auto;
+}
 /* .focacciaBread, .bananaBread, .lasagna img
 {
     border-radius: 25px;
