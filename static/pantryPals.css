@@ -136,6 +136,7 @@ header{
     justify-content: center; /* Align content to the center */
     width: 80%;
     margin: 0 auto; /* Center the paragraph itself */
+    border: 2px solid rgb(3, 42, 3)
 }
 
 h1 {
