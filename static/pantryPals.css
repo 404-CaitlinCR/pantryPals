@@ -214,13 +214,15 @@ figcaption {
     background-color: #9dc08c;
     width: 30%;
     height: 75%;
+    
 }
 
 .item:nth-child(3) {
     background-color: #8fc499;
     height: auto; /* Allow height to adjust */
-    width: 60%; /* Fix the width */
+    width: 60.8%; /* Fix the width */
 }
+/* Updated .devs container styling */
 .devs {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* Creates 2 equal-width columns */
@@ -229,6 +231,60 @@ figcaption {
     padding: 20px;
     max-width: 800px; /* Optional: limits the width of the grid container */
     margin: 0 auto;   /* Centers the grid container */
+    justify-items: center; /* Centers the flip cards horizontally */
+    align-items: center; /* Centers the flip cards vertically */
+    padding-bottom: 40px;
+}
+
+/* Flip card styling */
+.flip-card {
+    background-color: transparent;
+    width: 100%;
+    max-width: 180px; /* Adjusts the size of the flip cards */
+    aspect-ratio: 3 / 4;
+    /* border: 1px solid #f1f1f1; */
+    perspective: 1000px; /* Enables the 3D effect */
+    margin: 10px;
+    flex: 1 1 160px;
+}
+
+/* Flip card inner container */
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+/* Flip card hover effect */
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Flip card front and back styling */
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+}
+
+/* Front side styling */
+.flip-card-front {
+    background-color: #bbb;
+    color: black;
+}
+
+/* Back side styling */
+.flip-card-back {
+    padding-top: 20px;
+    background-color: #11674a;
+    color: white;
+    transform: rotateY(180deg);
+    border-radius: 10px;
 }
   
 .people {
@@ -294,105 +350,4 @@ figcaption {
 
 .backToTop:hover{
     background-color: #85a774;
-}
-/* flip devs */
-/* @-webkit-keyframes flip-vertical-right {
-    0% {
-      -webkit-transform: rotateY(0);
-              transform: rotateY(0);
-    }
-    100% {
-      -webkit-transform: rotateY(180deg);
-              transform: rotateY(180deg);
-    }
-}
-@keyframes flip-vertical-right {
-    0% {
-      -webkit-transform: rotateY(0);
-              transform: rotateY(0);
-    }
-    100% {
-      -webkit-transform: rotateY(180deg);
-              transform: rotateY(180deg);
-    }
-}
-.flip-vertical-right {
-	-webkit-animation: flip-vertical-right 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-	        animation: flip-vertical-right 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-}
-
-@-webkit-keyframes flip-vertical-left {
-    0% {
-      -webkit-transform: rotateY(0);
-              transform: rotateY(0);
-    }
-    100% {
-      -webkit-transform: rotateY(-180deg);
-              transform: rotateY(-180deg);
-    }
-}
-@keyframes flip-vertical-left {
-    0% {
-      -webkit-transform: rotateY(0);
-              transform: rotateY(0);
-    }
-    100% {
-      -webkit-transform: rotateY(-180deg);
-              transform: rotateY(-180deg);
-    }
-}
-
-.flip-vertical-left {
-	-webkit-animation: flip-vertical-left 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-	        animation: flip-vertical-left 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-} */
-
-.flip-card {
-  background-color: transparent;
-  /* width: 300px;
-  height: 200px; */
-  width: 100%;
-  max-width: 180px;
-  aspect-ratio: 3 / 4;
-  border: 1px solid #f1f1f1;
-  perspective: 1000px; /* Remove this if you don't want the 3D effect */
-  margin: 10px;
-  flex: 1 1 160px;
-}
-
-/* This container is needed to position the front and back side */
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-
-/* Do an horizontal flip when you move the mouse over the flip box container */
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-/* Position the front and back side */
-.flip-card-front, .flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden; /* Safari */
-  backface-visibility: hidden;
-}
-
-/* Style the front side (fallback if image is missing) */
-.flip-card-front {
-  background-color: #bbb;
-  color: black;
-}
-
-/* Style the back side */
-.flip-card-back {
-  background-color: rgb(137, 184, 231);
-  color: white;
-  transform: rotateY(180deg);
 }
