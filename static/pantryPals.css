@@ -16,7 +16,6 @@ header{
     justify-content: center; /* Center the links horizontally */
     align-items: center; /* Align items vertically */
     position: relative; /* Allows positioning of the logo */
-    
 }
 
 .pages {
@@ -126,12 +125,14 @@ header{
     background-color: #769b64;
     padding: 10px 10px;
     border-radius: 10px;
-    color: #745547;
+    color: #7a5443;
     font-size: 20px;
     display: flex;
     gap: 20px;
     flex-direction: column;
-    align-items: center;
+    justify-content: center; /* Align content to the center */
+    width: 80%;
+    margin: 0 auto; /* Center the paragraph itself */
 }
 
 h1 {
