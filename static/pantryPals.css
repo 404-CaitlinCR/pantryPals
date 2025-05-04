@@ -55,7 +55,8 @@ header{
 }
 
 .pages a:hover {
-    background-color: #96b586;
+    color: #eedac3;
+    background-color: #6f965b;
 }
 
 .userInput {
@@ -188,6 +189,7 @@ figcaption {
     align-content: start;
     margin: 10px;
     margin-top: 10px;
+    font-family: 'Trebuchet MS', sans-serif;
 }
 
 .item {
@@ -196,25 +198,27 @@ figcaption {
     border-radius: 15px;
     border: solid rgb(3, 42, 3);
     text-align: center;
+    background-color: #a2c590;
+
 
 }
 
 .item:nth-child(1) {
-    background-color: #88b572;
+    background-color: #aadaa0;
     width: 100%;
     height: 5%;
 }
 
 .item:nth-child(2) {
-    background-color: #88b572;
+    background-color: #9dc08c;
     width: 30%;
     height: 75%;
 }
 
 .item:nth-child(3) {
-    background-color: #88b572;
-    flex-grow: 1;
-    height: 75%;
+    background-color: #8fc499;
+    height: auto; /* Allow height to adjust */
+    width: 60%; /* Fix the width */
 }
 .devs {
     display: grid;
@@ -227,8 +231,8 @@ figcaption {
 }
   
 .people {
-    background-color: #f9f9f9; /* Light gray background */
-    border: 1px solid #ccc;    /* Gray border */
+    background-color: #eedac3; /* Light gray background */
+    border: 2px solid #745547;    /* Gray border */
     padding: 10px;
     text-align: center;
     border-radius: 8px;
@@ -241,11 +245,12 @@ figcaption {
     max-width: 150px;
     border-radius: 50%;
     margin-bottom: 10px;
+    border: 2px solid #745547;
 }
 
 .shortcut {
-    box-shadow: inset 0 0 0 0 #54b3d6;
-    color: #54b3d6;
+    box-shadow: inset 0 0 0 0 #6f965b;
+    color: #4c2615;
     padding: 0 .25rem;
     margin: 0 -.25rem;
     transition: color .5s ease-in-out, box-shadow .3s ease-in-out;
@@ -253,6 +258,7 @@ figcaption {
     background-color: #eedac3;
     padding: 5px 10px;
     border-radius: 10px;
+    border: 2px solid rgb(3, 42, 3);
 }
 
 .shortcut:hover {
