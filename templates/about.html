@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Pantry Pal</title>
+        <!-- <link rel="stylesheet" href="pantryPals.css">
+        <link rel="icon" type="image/png" href="../static/PantryPalLogo.png"> -->
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='pantryPals.css') }}">
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='PantryPalLogo.png') }}">
+    </head>
+    <body>
+        <header>
+            <div class="nav">
+                <a href="{{ url_for('home') }}">
+                    <img src="{{ url_for('static', filename='PantryPalLogo.png') }}" style="width:150px; height:150px;" alt="Pantry Pal Logo">
+                </a>
+                <!-- make home into a quick link to the homepage -->
+                <div class="pages">
+                    <a href="{{ url_for('chat') }}">Chat</a>
+                    <a href="{{ url_for('recipe_book') }}">Recipe Book</a>
+                    <a href="{{ url_for('recommendations') }}">Recommendations</a>
+                    <a href="{{ url_for('support') }}">Support</a>
+                </div>
+            </div>
+        </header>
+        <div class="containers">
+            <div class="item">
+                <h3 style="margin: 0; padding: 0;">MASTERCHEF, BUT MAKE IT BROKE</h3>
+            </div>
+            <div class="item">
+                <h4 style="margin: 0; padding: 0">the developers</h4>
+                <div class="devs">
+                    <div class="people">
+                        <img src="../static/nehu1.png">
+                        <p>Nehu</p>
+
+                    </div>
+                    <div class="people">
+                        <img src="../static/ameila.png">
+                        <p>Amelia</p>
+                    </div>
+                    <div class="people">
+                        <img src="../static/caitlyn.png">
+                        <p>Caitlin</p>
+                    </div>
+                    <div class="people">
+                        <p>Evelyn</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="item">
+                Content
+            </div>
+        </div>
+    </body>
+</html>

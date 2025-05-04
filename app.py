@@ -1,80 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <title>Pantry Pal</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='pantryPals.css') }}">
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='PantryPalLogo.png') }}">
-</head>
-<body>
-    <header>
+from flask import Flask, request, render_template, Response, stream_with_context
+from dotenv import load_dotenv
+import os
+import google.generativeai as genai
 
-        <div class="nav">
-            <a href="{{ url_for('home') }}">
-                <img src="{{ url_for('static', filename='PantryPalLogo.png') }}" style="width:150px; height:150px;" alt="Pantry Pal Logo">
-            </a>
+# Load environment variables
+load_dotenv()
 
-            <!-- make home into a quick link to the homepage -->
-             <div class="pages">
-                <a href="{{ url_for('chat') }}">Chat</a>
-                <a href="{{ url_for('recipe_book') }}">Recipe Book</a>
-                <a href="{{ url_for('recommendations') }}">Recommendations</a>
-                <a href="{{ url_for('support') }}">Support</a>
-             </div>
+# Configure Gemini
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-        </div>
-    </header>
-    <body>
+# Initialize the model
+model = genai.GenerativeModel(
+    model_name="gemini-1.5-pro-latest",
+    system_instruction="You are an amazing chef who can make a recipe out of any ingredients. "
+                       "Be kind, creative, and clear when giving recipes and instructions."
+)
 
-    <div class="interface">
-        <div class="userInput">
-            <form method="post" action="/generate">
-                <label for="ingredients">Enter ingredients (comma-separated):</label><br>
-                <input type="text" id="ingredients" name="ingredients" required>
-                <button type="submit">Generate Recipe</button>
-            </form>
-        </div>
+app = Flask(__name__)
 
-        <div class="chatBox" id="output">
-            <h2>🍽️ Your Recipe:</h2>
-            <!-- Streaming output will go here -->
-        </div>
-    </div>
 
-    <script>
-        const form = document.querySelector("form");
-        const outputDiv = document.getElementById("output");
-    
-        form.addEventListener("submit", function (e) {
-            e.preventDefault();
-            outputDiv.innerHTML = "<p>Generating...</p>";
-    
-            fetch("/generate", {
-                method: "POST",
-                body: new FormData(form),
-            }).then(response => {
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder("utf-8");
-    
-                function readChunk() {
-                    reader.read().then(({ done, value }) => {
-                        if (done) {
-                            console.log("Stream complete");
-                            return;
-                        }
-                        const chunk = decoder.decode(value, { stream: true });
-                        console.log("Chunk received:", chunk); // Debug: Log each chunk
-                        outputDiv.innerHTML += chunk; // Append the chunk to the output
-                        readChunk(); // Continue reading
-                    });
-                }
-    
-                readChunk();
-            }).catch(error => {
-                console.error("Error fetching data:", error);
-                outputDiv.innerHTML = "<p>Error generating recipe. Please try again.</p>";
-            });
-        });
-    </script>
-</body>
-</html>
+@app.route("/generate", methods=["POST"])
+def generate():
+    ingredients = request.form.get("ingredients")
+    prompt = f"Create a recipe using these ingredients: {ingredients}. Include a title, ingredients list, and clear step-by-step instructions.you are only allowed to use the ingredients given"
+
+    def generate_stream():
+        yield "<h2>🍽️ Your Recipe:</h2><ul>"  # Start an unordered list
+        response = model.generate_content(prompt, stream=True)
+        for chunk in response:
+            if chunk.text:  # Ensure the chunk has text
+                # Convert Markdown-like syntax to HTML
+                formatted_text = (
+                    chunk.text
+                    .replace("**", "<b>")  # Remove bold markers
+                    .replace("##", "<h2>")  # Replace heading markers
+                    .replace("\n", "<br>")  # Replace newlines with <br>
+                    .replace("* ", "<li>")  # Replace list markers with <li>
+                )
+                # Close tags for bold and headings
+                formatted_text = formatted_text.replace("<b>", "</b>", 1).replace("<h2>", "</h2>", 1)
+                yield formatted_text
+        yield "</ul></pre>"  # Close the unordered list
+
+    return Response(stream_with_context(generate_stream()), mimetype='text/html')
+
+@app.route("/", methods=["GET"])
+def home():
+    return render_template("about.html")
+
+@app.route("/chat")
+def chat():
+    return render_template("index.html")
+
+@app.route("/recipeBook")
+def recipe_book():
+    return render_template("recipeBook.html")
+
+@app.route("/recommendations")
+def recommendations():
+    return render_template("recommendations.html")
+
+@app.route("/support")
+def support():
+    return render_template("support.html")
+
+
+
+if __name__ == "__main__":
+    print("Visit http://127.0.0.1:5000 in your browser ✨")
+    app.run(debug=True)
