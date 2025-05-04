@@ -191,6 +191,7 @@ figcaption {
     margin: 10px;
     margin-top: 10px;
     font-family: 'Trebuchet MS', sans-serif;
+    
 }
 
 .item {
@@ -200,7 +201,8 @@ figcaption {
     border: solid rgb(3, 42, 3);
     text-align: center;
     background-color: #a2c590;
-
+    border: 2px solid rgb(3, 42, 3);
+    box-shadow: 10px 10px;
 
 }
 
@@ -214,6 +216,7 @@ figcaption {
     background-color: #9dc08c;
     width: 30%;
     height: 75%;
+    margin-top: 20px;
     
 }
 
@@ -221,6 +224,8 @@ figcaption {
     background-color: #8fc499;
     height: auto; /* Allow height to adjust */
     width: 60.8%; /* Fix the width */
+    margin-top: 20px;
+
 }
 /* Updated .devs container styling */
 .devs {
@@ -234,6 +239,7 @@ figcaption {
     justify-items: center; /* Centers the flip cards horizontally */
     align-items: center; /* Centers the flip cards vertically */
     padding-bottom: 40px;
+
 }
 
 /* Flip card styling */
