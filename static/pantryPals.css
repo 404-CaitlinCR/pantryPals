@@ -38,7 +38,11 @@ header{
     top: 50%; /* Center vertically */
     transform: translateY(-50%); /* Adjust for vertical centering */
     height: 80px; /* Adjust size as needed */
-    
+}
+
+/* logo  */
+.nav img:hover {
+    filter: brightness(1.1);
 }
 
 .nav a {
@@ -151,9 +155,12 @@ p{
     display: flex;
     gap: 40px;
     justify-content: center;
+    padding-bottom: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
-.focacciaBread, .bananaBread, .lasagna {
+.food {
     background-color:#a2c590;
     border-radius: 25px;
     box-shadow: 10px 10px;
@@ -176,6 +183,7 @@ figcaption {
     font-size: 25px;
     padding-bottom: 10px;
 }
+
 
 /* .focacciaBread, .bananaBread, .lasagna img
 {
