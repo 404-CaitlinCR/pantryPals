@@ -1,192 +1,80 @@
-body {
-    background-color: #eedac3;
-    color: #4c2615;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Pantry Pal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='pantryPals.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='PantryPalLogo.png') }}">
+</head>
+<body>
+    <header>
 
-}
-header{
-    font-family: Trebuchet MS, sans-serif;
-    margin: 0 auto;
-    margin-top: 50px;
-    color: #4c2615;
-    margin-bottom: 50px;
+        <div class="nav">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='PantryPalLogo.png') }}" style="width:150px; height:150px;" alt="Pantry Pal Logo">
+            </a>
 
-}
-.nav {
-    display: flex; /* Use Flexbox for layout */
-    justify-content: center; /* Center the links horizontally */
-    align-items: center; /* Align items vertically */
-    position: relative; /* Allows positioning of the logo */
-}
+            <!-- make home into a quick link to the homepage -->
+             <div class="pages">
+                <a href="{{ url_for('chat') }}">Chat</a>
+                <a href="{{ url_for('recipe_book') }}">Recipe Book</a>
+                <a href="{{ url_for('recommendations') }}">Recommendations</a>
+                <a href="{{ url_for('support') }}">Support</a>
+             </div>
 
-.pages {
-    background-color: #a2c590;
-    padding: 10px;
-    border-radius: 10px;
-    display: flex; /* Use Flexbox for layout */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    width: fit-content; /* Adjust width to fit content */
-    margin-left: -2px; /* Move closer to the image */
-    border: 2px solid rgb(3, 42, 3);
-    box-shadow: 10px 10px;
+        </div>
+    </header>
+    <body>
+
+    <div class="interface">
+        <div class="userInput">
+            <form method="post" action="/generate">
+                <label for="ingredients">Enter ingredients (comma-separated):</label><br>
+                <input type="text" id="ingredients" name="ingredients" required>
+                <button type="submit">Generate Recipe</button>
+            </form>
+        </div>
+
+        <div class="chatBox" id="output">
+            <h2>🍽️ Your Recipe:</h2>
+            <!-- Streaming output will go here -->
+        </div>
+    </div>
+
+    <script>
+        const form = document.querySelector("form");
+        const outputDiv = document.getElementById("output");
     
-}
-
-.nav img {
-    position: absolute; /* Position the logo */
-    left: 10px; /* Align the logo to the far left */
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Adjust for vertical centering */
-    height: 80px; /* Adjust size as needed */
-}
-
-/* logo  */
-.nav img:hover {
-    filter: brightness(1.1);
-}
-
-.nav a {
-    border-radius: 10px;
-    padding: 5px 10px;
-    margin: 0 10px; /* Add spacing between links */
-    text-decoration: none;
-    color: #4c2615;
-    font-size: 20px;
-    font-weight: bold;
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            outputDiv.innerHTML = "<p>Generating...</p>";
     
-}
-
-.pages a:hover {
-    background-color: #96b586;
-}
-
-.userInput {
-    background-color: #a2c590;
-    flex: 1;
-    display: inline-block;
-    vertical-align: top;
-    text-align: center;
-    margin: 0 auto;
-}
-
-.userInput p {
-    background-color: #88b572;
-    padding: 10px 10px;
-    margin-right: 10px;
-    border-radius: 10px;
-    color: #745547;
-    font-size: 20px;
-}
-
-.userInput input {
-    background-color: #6f965b;
-    border-radius: 10px;
-}
-
-.chatBox {
-    background-color: #eedac3;
-    border-radius: 15px;
-    flex: 1;
-    display: inline-block;
-    vertical-align: top;
-    text-align: center;
-    margin: 20px;
-    height: 130vh;
-    padding: 15px;
-    width: 95%; /* Set a fixed width */
-    border: solid rgb(3, 42, 3);
-}
-
-.interface {
-    margin: 20px auto;
-    background-color: #a2c590;
-    padding: 15px;
-    width: 67%;
-    border-radius: 25px;
-    display: flex;
-    flex-direction: column; /* Stack content vertically */
-    align-items: center;     /* Center horizontally */
-    border: 2px solid rgb(3, 42, 3);
-    box-shadow: 10px 10px;
-}
-/* this is for the recipe book */
-.book {
-    background-color: #a2c590;
-}
-/* this is for the contact page */
-.contact {
-    background-color: #a2c590;
-    margin: 20px auto;
-    width: 50%;
-    padding: 15px;
-    border-radius: 20px;
-    border-width: 4px;
-    text-align: center;
-    border: 2px solid rgb(3, 42, 3);
-    box-shadow: 10px 10px;
-}
-.contact p {
-    background-color: #769b64;
-    padding: 10px 10px;
-    border-radius: 10px;
-    color: #7a5443;
-    font-size: 20px;
-    display: flex;
-    gap: 20px;
-    flex-direction: column;
-    justify-content: center; /* Align content to the center */
-    width: 80%;
-    margin: 0 auto; /* Center the paragraph itself */
-}
-
-h1 {
-    font-family:  Trebuchet MS, sans-serif
-  }
-
-label{
-    font-family: DejaVu Sans Mono, monospace;
-}
-p{
-    font-family: Didot, serif
-}
-
-/* Recommendations page styling */
-.container {
-    display: flex;
-    gap: 40px;
-    justify-content: center;
-    padding-bottom: 40px;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-.food {
-    background-color:#a2c590;
-    border-radius: 25px;
-    box-shadow: 10px 10px;
-    border: 2px solid rgb(3, 42, 3);
-}
-
-.container div:hover{
-    transform:scale(1.1);
-    transition: transform 0.3s ease;
-
-}
-
-.container img{
-    border-radius: 25px;
-    padding: 10px;
-}
-
-figcaption {
-    text-align: center;
-    font-size: 25px;
-    padding-bottom: 10px;
-}
-
-
-/* .focacciaBread, .bananaBread, .lasagna img
-{
-    border-radius: 25px;
-    padding: 10px;
-} */
+            fetch("/generate", {
+                method: "POST",
+                body: new FormData(form),
+            }).then(response => {
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder("utf-8");
+    
+                function readChunk() {
+                    reader.read().then(({ done, value }) => {
+                        if (done) {
+                            console.log("Stream complete");
+                            return;
+                        }
+                        const chunk = decoder.decode(value, { stream: true });
+                        console.log("Chunk received:", chunk); // Debug: Log each chunk
+                        outputDiv.innerHTML += chunk; // Append the chunk to the output
+                        readChunk(); // Continue reading
+                    });
+                }
+    
+                readChunk();
+            }).catch(error => {
+                console.error("Error fetching data:", error);
+                outputDiv.innerHTML = "<p>Error generating recipe. Please try again.</p>";
+            });
+        });
+    </script>
+</body>
+</html>
