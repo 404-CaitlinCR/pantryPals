@@ -273,6 +273,28 @@ figcaption {
     width: 30%;
     height: auto;
 }
+.backToTop {
+    background-color: #a2c590; /* Retro Burnt Orange */
+    color: rgb(8, 2, 2);
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 3px solid #11674a; /* Dark Brown Border */
+    box-shadow: 3px 3px 0px rgb(8, 2, 2);
+    text-transform: uppercase;
+    display: block;
+    width: fit-content; /* Makes the button only as wide as the text */
+    height: fit-content;
+    position: fixed; /* Makes the button sticky */
+    bottom: 20px; /* Position from the bottom of the viewport */
+    left: 20px; /* Position from the left of the viewport */
+}
+
+.backToTop:hover{
+    background-color: #85a774;
+}
 /* .focacciaBread, .bananaBread, .lasagna img
 {
     border-radius: 25px;
